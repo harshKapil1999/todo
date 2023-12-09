@@ -1,4 +1,5 @@
 import { useState } from "react";
+import TodoWrapper from "./components/TodoWrapper.jsx";
 
 //import Buttons from "./components/Buttons";
 
@@ -28,11 +29,13 @@ function App() {
   
 
   function handleEdit(id, todo) {
+    console.log(id, todo)
     setIsEditing(!isEditing);
     setTodos((prev) => prev.map((prevTodo) => (prevTodo.id === id ? todo : prevTodo)))
   }
 
   function handleDelete(id) {
+    
     setTodos(todos.filter((todo) => todo.id !== id));
   }
 
@@ -41,6 +44,7 @@ function App() {
   }
 
   return (
+    <>
     <div className="w-full h-screen bg-black text-white">
       <h1 className="text-3xl font-bold text-center p-4">To-Do&apos;s</h1>
       <div className="flex flex-col items-center justify-between w-full">
@@ -75,7 +79,7 @@ function App() {
                 <div className="flex items-center justify-items-center gap-2">
                   <input id={todo.id} type="checkbox" defaultChecked={todo.completed} onChange={handleComplete}/>
                   {isEditing ? (
-                    <input id={todo.id} type="textbox" value={todo.name} /* onChange={() => editTodo(todo)} */ className="text-black text-xl " />
+                    <input id={todo.id} type="textbox" value={todo.name} onChange={(e) => e.target.value} /* onChange={() => editTodo(todo)} */ className="text-black text-xl " />
                   ) : (
                     <label htmlFor={todo.id}>{todo.name}</label>
                   )}
@@ -102,6 +106,8 @@ function App() {
         </ul>
       </div>
     </div>
+    <TodoWrapper />
+    </>
   );
 }
 
